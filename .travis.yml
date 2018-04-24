@@ -1,0 +1,12 @@
+sudo: required
+
+language: ruby
+
+services:
+  - docker
+
+before_install:
+  - docker build -t tests-runner:$TRAVIS_COMMIT .
+
+script:
+  -  docker run tests-runner:$TRAVIS_COMMIT
