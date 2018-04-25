@@ -89,4 +89,30 @@ class TestHW1 < Minitest::Test
 
     assert_empty task_2(input), "should be empty for errors"
   end
+
+  def test_task_3_time_counts
+    input = <<-LOG
+2018-04-23 17:17:49.7 ubuntu-xenial[14319] Debug - Calling core with action: event
+2018-04-23 17:17:49.7 ubuntu-xenial[14319] Debug - connecting to: 10.6.246.101
+2018-04-23 17:17:49.8 ubuntu-xenial[14319] Debug - docker event processed
+2018-04-23 17:18:19.5 ubuntu-xenial[14319] Debug - monitoring grid communication health
+2018-04-23 17:18:38.8 ubuntu-xenial[14319] Debug - Calling core with action: messages
+2018-04-23 17:18:38.8 ubuntu-xenial[14319] Debug - connecting to: 10.6.246.101
+2018-04-23 17:18:59.8 ubuntu-xenial[14319] Debug - inside docker_handle_event
+    LOG
+
+    assert_equal 49.1, task_3(input), "should calculate the difference between events"
+  end
+
+  def test_task_4_sum_of_digits
+    input = "2018-04-24 17:03:45.6 ubuntu-xenial[17425] Information - Detected docker: Version: 17.05.0-ce, API Version: v1.29"
+
+    assert_equal 91, task_4(input)
+  end
+
+  def test_task_4_sum_is_zero_for_no_numbers
+    input = "this is cool log"
+
+    assert_equal 0, task_4(input)
+  end
 end
